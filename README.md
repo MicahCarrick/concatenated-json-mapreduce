@@ -106,4 +106,43 @@ $ hadoop fs -cat /user/hadoop/output/part-r-*
 
 ### IntelliJ IDEA
 
-This project is not currently using a build system. Development, testing, and building JAR files has been done with [IntelliJ IDEA](https://www.jetbrains.com/idea/).
+This project is not currently using a build system. Development, testing, and building JAR files was done directly in [IntelliJ IDEA](https://www.jetbrains.com/idea/).
+
+
+#### Add Hadoop Dependencies
+
+JARs from the following directories need to be added to your project where the `/share` path is relative to your Hadoop installation root. For example it may be `/usr/share` or `/opt/hadoop/share`, etc.
+
+* `/share/hadoop/common/*`
+* `/share/hadoop/common/lib/*`
+* `/share/hadoop/mapreduce/*`
+
+To add these JARs to your IntelliJ project:
+
+1. Press `CTRL+ALT+SHIFT+S` to bring up the **Project Structure** dialog
+2. Select **Modules** from the list on the left-hand side
+3. Select the **Dependencies** tab from the right pane
+4. Click the plus (+) icon in the toolbar on the right-hand side
+5. Select **JARs or Directories...**
+6. Navigate to the path containing the JARs as indicated above and select all of the JARs within that path
+7. Repeat of each path containing dependency JARs
+
+
+#### Example Application Run Configuration
+
+The example application can be run directly in IntelliJ from the local filesystem.
+
+1. From the top menu select **Run** > **Edit Configurations**
+2. Select the plus (+) icon in the top toolbar and select **Application**
+3. Set **Main class** to `tech.carrick.mapreduce.ConcatenatedJsonExample`
+4. Set **Program Arguments** to the input file and output directory on the local filesystem. For example: `test/resources/multiple-objects.txt /tmp/example-output/`
+5. Add your `HADOOP_HOME` to **Environment variables**. For example: `/etc/hadoop` or `/opt/hadoop2.8.5/etc/hadoop` depending on where Hadoop is installed on your local environment.
+
+
+#### Record Reader Test Configuration
+
+The bulk of the logic is in the record reader code. To run the tests in `ConcatenatedJsonRecordReaderTest` create a JUnit run configuration in IntelliJ.
+
+1. From the top menu select **Run** > **Edit Configurations**
+2. Select the plus (+) icon in the top toolbar and select **JUnit**
+3. Set **Class** to `tech.carrick.mapreduce.ConcatenatedJsonRecordReaderTest`
